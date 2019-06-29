@@ -49,5 +49,4 @@ fs.readFile('./config.json', (error, fileData) => {
 			})
 		]);
 	});
-
 });
