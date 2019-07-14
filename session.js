@@ -1,8 +1,9 @@
 class Session {
 	constructor() {
-		this.directory = "";
+		this.directory = ".";
+		this.command = { };
 		this.numberOfCommandsExecuted = 0;
-		this.commandExecuting = false;
+		this.previousCommandFinishedExecuting = true;
 	}
 }
 
