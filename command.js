@@ -3,7 +3,6 @@ const { spawn } = require('child_process');
 class Command extends spawn{
 	constructor(query, currentDirectory) {
 		let effectiveQuery = "cd " + currentDirectory + " && " + query;
-		console.log("effectiveQuery: " + effectiveQuery);
 		super(effectiveQuery, {
 			shell: true,
 			stdio: 'pipe'

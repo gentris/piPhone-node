@@ -1,4 +1,5 @@
 const { spawn } = require('child_process');
+const Command = require('./command');
 
 class Helper {
 	constructor() {
@@ -35,12 +36,9 @@ class Helper {
 			let directoryQueryArray = directoryQuery.toString().split(" ");
 			let directoryIndex = directoryQueryArray.lastIndexOf("cd") + 1;
 			let newDirectory = directoryQueryArray[directoryIndex].toString().replace(/(\r\n|\n|\r)/gm, "");
-			directoryQuery = "cd " + session.directory + " && " + "cd " + newDirectory + " && pwd";
+			directoryQuery = "cd " + newDirectory + " && pwd";
 
-			const changeDirCommand = spawn(directoryQuery, {
-				shell: true,
-				stdio: 'pipe'
-			});
+			const changeDirCommand = new Command(directoryQuery, session.directory);
 
 			changeDirCommand.stdout.on('data', function(newDirectory) {
 				session.directory = newDirectory.toString().replace(/(\r\n|\n|\r)/gm, "");
