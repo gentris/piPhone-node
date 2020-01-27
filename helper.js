@@ -4,7 +4,7 @@ const Command = require('./command');
 class Helper {
 	constructor() {
 		this.BlenoState = {
-			StateChange: 'stateChange ',
+			StateChange: 'stateChange',
 			PoweredOn: 'poweredOn',
 			PoweredOff: 'poweredOff'
 		};
@@ -31,7 +31,7 @@ class Helper {
 
 		console.log("Request to change dir, true or false: " + requestToChangeDir);
 
-		if (requestToChangeDir && session.previousCommandFinishedExecuting) {
+		if (requestToChangeDir) {
 			let directoryQuery = query;
 			let directoryQueryArray = directoryQuery.toString().split(" ");
 			let directoryIndex = directoryQueryArray.lastIndexOf("cd") + 1;

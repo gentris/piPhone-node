@@ -7,7 +7,6 @@ const Helper = require('./helper');
 class CommandCharacteristic extends Bleno.Characteristic {
 	constructor(options) {
 		super(options);
-
 	}
 
 	onSubscribe(maxValueSize, updateValueCallback) {
@@ -25,7 +24,6 @@ class CommandCharacteristic extends Bleno.Characteristic {
 	onWriteRequest(data, offset, withoutResponse, callback) {
 		const self = this;
 		const query = data.toString();
-		let command = this.session.command;
 
 		console.log("[+] Received request to execute command.");
 		if (offset) {
@@ -35,30 +33,31 @@ class CommandCharacteristic extends Bleno.Characteristic {
 		}
 
 		if (!this.session.previousCommandFinishedExecuting) {
-			command.stdin.write(query, function(error) {
+			this.command.stdin.write(query + "\n", function(error) {
 				console.log("[+] Error while trying to send the neccessary data to the current command.");
 			});
 			callback(this.RESULT_SUCCESS);
 			return;
 		}
 
-		command = new Command(query, this.session.directory);
+		this.command = new Command(query, this.session.directory);
+		this.session.previousCommandFinishedExecuting = false;
 		Helper.setCurrentDirectory(query, this.session);
-		command.stdout.on('data', function(output) {
+		this.command.stdout.on('data', function(output) {
 			let payloads = Helper.preparePayloads(output, self.maxValueSize);
 			payloads.forEach(function(payload){
 				self.updateValueCallback(Buffer.from(payload));
 			});
 		});
 
-		command.stderr.on('data', function(error) {
+		this.command.stderr.on('data', function(error) {
 			let payloads = Helper.preparePayloads(error, self.maxValueSize);
 			payloads.forEach(function(payload){
 				self.updateValueCallback(Buffer.from(payload));
 			});
 		});
 
-		command.on('exit', function() {
+		this.command.on('exit', function() {
 			self.session.previousCommandFinishedExecuting = true;
 			console.log("[+] Command finished executing")
 

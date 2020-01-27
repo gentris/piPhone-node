@@ -5,7 +5,7 @@ class Command extends spawn{
 		let effectiveQuery = "cd " + currentDirectory + " && " + query;
 		super(effectiveQuery, {
 			shell: true,
-			stdio: 'pipe'
+			stdio: ['pipe', 'pipe', 'pipe']
 		});
 	}
 

@@ -25,7 +25,7 @@ fs.readFile('./config.json', (error, fileData) => {
 		console.log('[+] Bluetooth state changed to: ' + state);
 		
 		if (state === 'poweredOn') {
-			Bleno.startAdvertising('Spas', [appConfig.serviceUUID]);
+			Bleno.startAdvertising('pi', [appConfig.serviceUUID]);
 		} else {
 			Bleno.stopAdvertising();
 		}
