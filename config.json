@@ -1,4 +1,5 @@
 {
 	"serviceUUID": "50315dc8-bd51-4561-a9ec-eac52609b17a",
-	"characteristicUUID": "e6b8f004-b286-4826-b6ca-cba2eb628c03"
+	"commandCharacteristicUUID": "e6b8f004-b286-4826-b6ca-cba2eb628c03",
+	"screenCharacteristicUUID": "755ae080-461f-11ea-b77f-2e728ce88125"
 }

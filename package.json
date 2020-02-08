@@ -9,6 +9,7 @@
   "author": "Gentris Leci",
   "license": "ISC",
   "dependencies": {
-    "bleno": "^0.5.0"
+    "bleno": "^0.5.0",
+    "node-pty": "^0.9.0"
   }
 }

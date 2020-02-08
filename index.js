@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Bleno = require('bleno');
-const SpasService = require('./spas-service');
 const CommandCharacteristic = require('./command-characteristic');
+const ScreenCharacteristic = require('./screen-characteristic');
 const Helper = require('./helper');
 const BlenoState = Helper.BlenoState;
 
@@ -36,16 +36,30 @@ fs.readFile('./config.json', (error, fileData) => {
 			console.log("[+] Advertising failed.");
 			return;
 		}
+
+		const session = {
+			rows: "",
+			cols: ""
+		};
+
+		const screenCharacteristic = new ScreenCharacteristic({
+			uuid: appConfig.screenCharacteristicUUID,
+			properties: ['read', 'write', 'notify']
+		}, session);
+		const commandCharacteristic = new CommandCharacteristic({
+			uuid: appConfig.commandCharacteristicUUID,
+			properties: ['read', 'write', 'notify']
+		}, session);
+
+		screenCharacteristic.emitter.on('screen-ready', screenData => {
+			console.log("screenData: ", screenData);
+			commandCharacteristic.initShell(screenData);
+		});
 		
 		Bleno.setServices([
-			new SpasService({
+			new Bleno.PrimaryService({
 				uuid: appConfig.serviceUUID,
-				characteristics: [
-					new CommandCharacteristic({
-						uuid: appConfig.characteristicUUID,
-						properties: ['read', 'write', 'notify']
-					})
-				]
+				characteristics: [screenCharacteristic, commandCharacteristic]
 			})
 		]);
 	});
