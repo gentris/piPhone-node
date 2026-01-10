@@ -1,15 +1,15 @@
 {
-  "name": "spas",
+  "name": "piPhone",
   "version": "1.0.0",
   "description": "A BLE (Bluetooth Low Energy) peripheral tool that executese bash commands and returns the result back to the connected centeral device.",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Gentris Leci",
   "license": "ISC",
   "dependencies": {
-    "bleno": "^0.5.0",
-    "pty": "0.0.0"
+    "bleno": "npm:@abandonware/bleno@0.6.2",
+    "node-pty": "1.0.0"
   }
 }

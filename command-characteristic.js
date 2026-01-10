@@ -3,7 +3,7 @@ const { spawn } = require('child_process');
 const Session = require('./session');
 const Command = require('./command');
 const Helper = require('./helper');
-const pty = require('pty.js')
+const pty = require('node-pty')
 
 class CommandCharacteristic extends Bleno.Characteristic {
 	constructor(options, session) {
