@@ -6,4 +6,6 @@ install:
 	@npm install --loglevel silly
 
 run:
+	@nvm use 10
+	@pyenv local 3.8
 	@sudo node index.js
