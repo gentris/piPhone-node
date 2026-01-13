@@ -1,11 +1,15 @@
+SHELL := /bin/bash
+
 .PHONY: install run
 
+NVM_DIR ?= $(HOME)/.nvm
+
 install:
-	@nvm use 8
+	@source "$(NVM_DIR)/nvm.sh" && nvm use 8
 	@pyenv local 3.8
 	@npm install --loglevel silly
 
 run:
-	@nvm use 8
+	@source "$(NVM_DIR)/nvm.sh" && nvm use 8
 	@pyenv local 3.8
-	@sudo node index.js
+	@node index.js
