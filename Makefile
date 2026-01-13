@@ -12,4 +12,4 @@ install:
 run:
 	@source "$(NVM_DIR)/nvm.sh" && nvm use 8
 	@pyenv local 3.8
-	@node index.js
+	@sudo $$(which node) index.js
