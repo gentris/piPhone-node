@@ -79,4 +79,7 @@ run:
 	@bash -lc 'cd "$(REPO_DIR)" && source "$(NVM_DIR)/nvm.sh" && nvm use $(NODE_VERSION) && sudo "$$(which node)" index.js'
 
 sync:
-	rsync -av --delete --exclude='.git/' ./ pi@192.168.100.179:~/piPhone-node/
+	rsync -av --delete \
+	--exclude='.git/' \
+	--exclude='node_modules/' \
+	./ pi@192.168.100.179:~/piPhone-node/
